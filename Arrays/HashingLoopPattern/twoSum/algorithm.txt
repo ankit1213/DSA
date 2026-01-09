@@ -1,0 +1,99 @@
+================================================================================
+APPROACH 1: BRUTE FORCE (O(n²))
+================================================================================
+
+💡 CORE IDEA:
+   Try every possible pair and check if their sum equals the target.
+
+🔹 ALGORITHM STEPS:
+   1. Loop through the array using index i
+   2. For each i, loop again using index j = i + 1
+   3. Check if nums[i] + nums[j] == target
+   4. If true → return [i, j]
+
+📊 COMPLEXITY ANALYSIS:
+   • Time Complexity:  O(n²) → nested loops iterate n × n times
+   • Space Complexity: O(1) → no extra data structures needed
+
+❌ DISADVANTAGES FOR INTERVIEWS:
+   • Too slow for large inputs (TLE on MAANG platforms)
+   • Not scalable
+   • Only acceptable for explaining the basic concept
+
+
+
+================================================================================
+APPROACH 2: HASH MAP APPROACH (O(n)) ⭐ OPTIMAL & RECOMMENDED
+================================================================================
+
+💡 CORE IDEA:
+   For every number x, we need to find y such that:
+   
+   x + y = target
+   y = target - x
+   
+   Instead of searching for y, we store numbers in a hash map and check if
+   the complement (target - x) already exists.
+
+🔹 ALGORITHM STEPS:
+   1. Create an empty hash map (dictionary)
+      • Key: number value
+      • Value: index position
+
+   2. Loop through the array (single pass):
+      
+      For each element nums[i]:
+      
+      a) Calculate complement = target - nums[i]
+      
+      b) If complement exists in the hash map:
+         → Return [map[complement], i]
+      
+      c) Otherwise:
+         → Store nums[i] → i in the hash map
+         → Continue to next element
+
+📊 COMPLEXITY ANALYSIS:
+   • Time Complexity:  O(n) → single pass through array
+                             → hash map lookup is O(1)
+   • Space Complexity: O(n) → hash map stores up to n elements
+
+================================================================================
+COMPARISON TABLE
+================================================================================
+
+| Approach  | Time Complexity | Space Complexity | Interview-Ready? |
+|-----------|-----------------|------------------|------------------|
+| Brute     | O(n²)           | O(1)             | ❌ No (TLE)       |
+| HashMap   | O(n)            | O(n)             | ✅ Yes (OPTIMAL)  |
+
+================================================================================
+🔥 INTERVIEW TIPS & BEST PRACTICES
+================================================================================
+
+✅ DO THIS:
+   1. Start by explaining the brute force approach (shows clarity)
+   2. Identify its limitation (O(n²) is too slow)
+   3. Explain the optimization using hash map
+   4. Code the optimal O(n) solution
+   5. Walk through an example to validate
+
+📋 EXAMPLE WALKTHROUGH:
+   Input: nums = [2, 7, 11, 15], target = 9
+   
+   Step 1: i=0, nums[0]=2
+           complement = 9-2 = 7
+           7 not in map
+           map = {2: 0}
+   
+   Step 2: i=1, nums[1]=7
+           complement = 9-7 = 2
+           2 exists in map at index 0 ✓
+           Return [0, 1]
+
+💬 WHAT TO SAY IN INTERVIEW:
+   "I'll first explain the brute force approach for clarity, then optimize it
+    using a hash map to achieve O(n) time complexity. This approach trades
+    space for time, which is a common optimization technique in interviews."
+
+================================================================================
